@@ -4,23 +4,25 @@ var improvId = '155588661156148';
 // var token = '?access_token=EAAEDcqhSBA8BAHFEjYjofxPwWtjyRP3C1Er8cUorW8dsxVnuP9ZAEdqsT3MKlgTiSugZBsSEdwx0smCKgpiFqkW8n7ocTP3FZBJBTPoqNggTpocf0lD7hEcAPz6J4WemGe55h9AQWyT1B1ko1quUyJpdxAWbmTAeQCsPFrFZAAZDZD';
 
 //app token never expires 
-var token = '?access_token=285265961813007|kWebjxfAmbFyutsoJlXKOnvLcO8';
+// var token = '?access_token=285265961813007|kWebjxfAmbFyutsoJlXKOnvLcO8';
+var token = '?access_token=EAAEDcqhSBA8BALx7vlskKTEwWSrimYCg8WV6Y3qes8FAPipxE9foWUp3jQjgLVPNUqFZBNl58ZATU9GTv0aIJgCmxH7YccJDXRrn0trnTAz8lCQUR9ZBHortVQ3F5Tqbd5ZBPF9BQzk7at1IQeyZAjADgUYv3NZAsGJ1ct1W7oiAZDZD';
 
-var baseURL = 'https://graph.facebook.com/v2.8/';
+var baseURL = 'https://graph.facebook.com/v3.1/';
 
 var addToObj = require('../../dev/js/functions/addToObj.js');
 
 var makeDate = require('../../dev/js/functions/makeDate.js');
 
+//get the events
 app.factory('fbEvents', ['$http', '$sce', function($http, $sce) { 
-  return $http.get(baseURL+improvId+'/events'+token+'&fields=description,end_time,start_time,is_canceled,name,place,ticket_uri') 
+  return $http.get(baseURL+improvId+'/events'+token+'&fields=description,end_time,start_time,is_canceled,name,place,ticket_uri,cover') 
             .success(function(data) {
                 console.log('getting facebook events');
-                // console.log(data.data);
+                console.log(data.data);
                 var fbEvents = data.data;
 
                 fbEvents.forEach(function(val,i){
-                  var id = val.id;
+                  var id = val.place.id;
                   var name = val.name.toLowerCase();
                   var imgSource;
 
@@ -58,15 +60,8 @@ app.factory('fbEvents', ['$http', '$sce', function($http, $sce) {
                   description = description.join(' ');
                   val.desc = $sce.trustAsHtml(description);
 
-                  $http.get(baseURL+id+'/photos'+token).success(function(obj) {
-                    var imgId = obj.data[0].id;
-
-                    $http.get(baseURL+imgId+token+'&fields=images').success(function(arr){
-                      imgSource = arr.images[0].source;
-                      addToObj(name,val,imgSource,i);
-                    });
-
-                  });
+                  imgSource = val.cover.source;
+                  addToObj(name,val,imgSource,i);
 
                 });
 
