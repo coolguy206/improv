@@ -18,7 +18,7 @@ app.factory('fbEvents', ['$http', '$sce', function($http, $sce) {
   return $http.get(baseURL+improvId+'/events'+token+'&fields=description,end_time,start_time,is_canceled,name,place,ticket_uri,cover') 
             .success(function(data) {
                 console.log('getting facebook events');
-                console.log(data.data);
+                // console.log(data.data); 
                 var fbEvents = data.data;
 
                 fbEvents.forEach(function(val,i){
