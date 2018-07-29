@@ -1,0 +1,43 @@
+<aside class="col-sm-5 sidebar"> 
+    <h3>shows</h3>
+    <div class="clearfix" ng-repeat="show in events | limitTo:9 | filter: {category: 'shows'}">
+        <a ng-href="#/shows/{{show.index}}/{{show.url}}" title="{{show.name}}">{{show.name}}
+            <img ng-src="{{show.img}}" alt="{{show.name}}" />
+        </a>
+    </div>
+    <div class="clearfix">
+        <a href="#/shows" title="See More Shows">See More Shows</a>
+    </div>
+    <h3>classes</h3>
+    <div class="clearfix" ng-repeat="class in events | limitTo:9 | filter: {category:'classes'}">
+        <a ng-href="#/classes/{{class.index}}/{{class.url}}" title="{{class.name}}">{{class.name}}
+            <img ng-src="{{class.img}}" alt="{{class.name}}" />
+        </a>
+    </div>
+    <div class="clearfix">
+        <a href="#/classes" title="See More Classes">See More Classes</a>
+    </div>
+
+    <div data="mobile">
+        <h3>Contact Us</h3>
+        <div class="clearfix">
+            <a href="mailto:info@improvcomedymumbai.com" title="Email Us">
+                <i class="fa fa-envelope fa-lg"></i>
+                <span>Email Us</span>
+                <i class="fa fa-envelope fa-lg"></i>
+            </a>
+        </div>
+        <div class="clearfix">
+            <a href="tel:00917710991901">
+                Call Us<br/>
+                +91.7710991901
+            </a>
+        </div>
+        <div class="clearfix">
+            <a href="tel:00919819929805">
+                Call Us<br/>
+                +91.9819929805
+            </a>
+        </div>
+    </div>
+</aside>

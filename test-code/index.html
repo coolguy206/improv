@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	/*body{background: url('http://i.dailymail.co.uk/i/pix/2016/03/22/13/32738A6E00000578-3504412-image-a-6_1458654517341.jpg') 0 0;}*/
+	#container {
+		padding: 10px;
+	}
+	.notes div {
+		border: 3px solid grey;
+		margin: 10px 0;
+		padding: 10px;
+	}
+	.notes div:nth-child(odd){
+		background: yellow;
+	}
+	</style>
+</head>
+<body>
+	<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '285265961813007',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>
+	<div id="facebook"></div>
+	<div id="youtube"></div>
+	<div id="instagram"></div>
+	<div id="container"></div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+
+	<script>
+	$(document).ready(function(){
+		$.get({
+			url: 'http://davidtproductions.com/dev/api/get_tag_posts/?slug=ensemble',
+			dataType: 'jsonp',
+			success: function(data){
+				console.log(data);
+				$.each(data.posts, function(i,val){
+					$('#container').append('<div><h2>'+val.title+'</h2><img src="'+val.thumbnail_images.medium.url+'" alt="'+val.title+'"><p>'+val.content+'<p></div>');
+				});
+				$('#container div p img, #container div h2 img').remove();
+				$('#container div p').removeAttr('style');
+			}
+		});
+
+		$.get({
+			url: 'https://api.instagram.com/v1/users/2040097928/media/recent?access_token=3187374881.f80df5f.4f7b1ad3585540f49c990f79e2d951fc',
+			dataType: 'jsonp',
+			success: function(obj) {
+				console.log(obj);
+			}
+		});
+
+		$.get({
+			url: 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails%2Cstatus&playlistId=UUeLKZeqQfneekOIGBc_Sp_Q&maxResults=20&key=AIzaSyBBgc8XqssJ0R-2i4M2MXeEmX-jkiUOkQQ',
+			//dataType: 'jsonp',
+			success: function(data) {
+				console.log(data);
+				$.each(data.items,function(i,val){
+					$('#youtube').append('<h2>'+ val.snippet.title+'</h2><img src="'+ val.snippet.thumbnails.medium.url +'"><br/><iframe width="640" height="360" src="https://www.youtube.com/embed/'+val.snippet.resourceId.videoId+'?rel=0" frameborder="0" allowfullscreen></iframe><p>'+ val.snippet.description+'</p>')
+				});
+			}
+		});
+
+		var improvId = '155588661156148';
+		var myArray = [];
+		$.get({
+			url: 'https://graph.facebook.com/v2.8/387748594606819/photos?access_token=EAAEDcqhSBA8BAHFEjYjofxPwWtjyRP3C1Er8cUorW8dsxVnuP9ZAEdqsT3MKlgTiSugZBsSEdwx0smCKgpiFqkW8n7ocTP3FZBJBTPoqNggTpocf0lD7hEcAPz6J4WemGe55h9AQWyT1B1ko1quUyJpdxAWbmTAeQCsPFrFZAAZDZD&fields=name%2Ctype%2Cticket_uri%2Ccover%2Cplace%2Cstart_time%2Cend_time',
+			dataType: 'jsonp',
+			success: function(data){
+				// console.log(data.data);
+
+				for(i=0; i<4;i++){
+					myArray.push(data.data[i].id);
+				}
+				
+				$.each(myArray, function(i,val){
+					$.get({
+						url:'https://graph.facebook.com/v2.8/'+val+'?access_token=EAAEDcqhSBA8BAHFEjYjofxPwWtjyRP3C1Er8cUorW8dsxVnuP9ZAEdqsT3MKlgTiSugZBsSEdwx0smCKgpiFqkW8n7ocTP3FZBJBTPoqNggTpocf0lD7hEcAPz6J4WemGe55h9AQWyT1B1ko1quUyJpdxAWbmTAeQCsPFrFZAAZDZD&fields=images',
+						success: function(data){
+							// console.log(data);
+							$('#facebook').append('<img src="'+data.images[0].source+'">');
+						}
+					});
+				});
+				// console.log(myArray);
+			}
+		});
+
+		
+		$.get({
+			url: 'https://graph.facebook.com/v2.8/'+improvId+'/events?access_token=EAAEDcqhSBA8BAHFEjYjofxPwWtjyRP3C1Er8cUorW8dsxVnuP9ZAEdqsT3MKlgTiSugZBsSEdwx0smCKgpiFqkW8n7ocTP3FZBJBTPoqNggTpocf0lD7hEcAPz6J4WemGe55h9AQWyT1B1ko1quUyJpdxAWbmTAeQCsPFrFZAAZDZD',
+			dataType: 'jsonp',
+			success: function(data){
+				console.log(data);
+				var x = data.data[9];
+				var search = /goo.gl\/forms/g;
+				var desc = x.description;
+				
+				
+				var descArr = desc.split(" ");
+				console.log(descArr);
+				$.each(descArr, function(i,val){
+					if(val.indexOf('http://goo.gl/forms') !== -1) {
+						if(val.indexOf('\nTIME') !== -1){
+							console.log(descArr[i].replace('\nTIME', ''));
+						} else if(val.indexOf('\n\nTIME') !== -1){
+							console.log(descArr[i].replace('\n\nTIME', ''));
+						} else {
+							console.log(descArr[i]);
+						}
+					}
+				});
+			}
+		});
+	
+	});
+	</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<div class="col-xs-1 star-border">
+    <i class="fa fa-star fa-2x pink"></i>
+    <i class="fa fa-star-o fa-2x black"></i>
+</div>
+
+<h3 class="col-xs-10">{{page}}</h3>
+
+<div class="col-xs-1 star-border">
+    <i class="fa fa-star fa-2x pink"></i>
+    <i class="fa fa-star-o fa-2x black"></i>
+</div>
+
+<ul class="clearfix cast">
+    <li class="col-sm-4" ng-repeat="cast in info | orderBy: index" data="cast" change-height>
+        <a ng-href="#/{{page}}/{{cast.index}}/{{cast.slug}}" title="{{cast.title}}">
+            <img ng-src="{{cast.thumbnail_images.thumbnail.url}}" alt="{{cast.title}}" />
+            <span>{{cast.title}}</span>
+        </a>
+    </li>
+</ul> 

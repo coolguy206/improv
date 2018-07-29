@@ -1,0 +1,59 @@
+                    <div class="col-sm-7 content">
+                        <div class="title-container">
+                            <div class="title">
+                                <div class="col-xs-1 star-border">
+                                    <i class="fa fa-star fa-2x pink"></i>
+                                    <i class="fa fa-star-o fa-2x black"></i>
+                                </div>
+                                <h3 class="col-xs-10">Shows</h3>
+                                <div class="col-xs-1 star-border">
+                                    <i class="fa fa-star fa-2x pink"></i>
+                                    <i class="fa fa-star-o fa-2x black"></i>
+                                </div>
+                                <div class="clearfix" ng-repeat="show in fbEvents | limitTo: 10  | filter: {category: 'show'}">
+                                    <a ng-href="#/shows/{{show.index}}/{{show.url}}"><img ng-src="{{show.img}}" alt="{{show.name}}" title="{{show.name}}" /></a>
+                                    <span ng-if="show.ticket_uri" data="ticket"><a ng-href="{{show.ticket_uri}}" title="Buy Tickets" target="_blank">Buy Tickets</a></span>
+                                    <span data="date">{{show.date}}</span> 
+                                </div>
+                            </div>
+
+                            <hr/>
+
+                            <div class="title">
+                                <div class="col-xs-1 star-border">
+                                    <i class="fa fa-star fa-2x pink"></i>
+                                    <i class="fa fa-star-o fa-2x black"></i>
+                                </div>
+                                <h3 class="col-xs-10">classes</h3>
+                                <div class="col-xs-1 star-border">
+                                    <i class="fa fa-star fa-2x pink"></i>
+                                    <i class="fa fa-star-o fa-2x black"></i>
+                                </div>
+                                <div class="clearfix" ng-repeat="class in fbEvents | limitTo:7 | filter:{category: 'class'} ">
+                                    <a ng-href="#/classes/{{class.index}}/{{class.url}}"><img ng-src="{{class.img}}" alt="{{class.name}}" title="{{class.name}}" /></a>
+                                    <span ng-if="class.ticket_uri" data="ticket"><a ng-href="{{class.ticket_uri}}" title="Buy Tickets" target="_blank">Buy Tickets</a></span>
+                                    <span data="date">{{class.date}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <aside class="col-sm-5 home-sidebar">
+                        <h3>news</h3>
+
+                        <div ng-repeat="post in fbFeed | limitTo: 6">
+                            <h4 ng-if="post.story">{{post.story}}</h4>
+
+                            <video controls ng-if="post.hideVideo" poster="{{post.full_picture}}">
+                                <source ng-src="{{post.video}}">
+                                Your browser does not support the video tag.
+                            </video>
+
+                            <iframe ng-if="post.iframe" ng-src="{{post.video}}" allowfullscreen frameborder="0"></iframe>
+
+                            <img  ng-src="{{post.full_picture}}" ng-if="post.hideImg" alt="{{post.story}}" title="{{post.story}}" />
+                            <!-- <p>{{post.message}}</p> -->
+                            <p ng-bind-html="post.desc"></p>
+                            <p><span>{{post.date}}</span></p>
+                        </div>
+                    </aside>

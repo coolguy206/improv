@@ -1,0 +1,29 @@
+<div class="col-sm-7 content">
+    <div class="title-container">
+        <div class="title">
+
+            <div class="col-xs-1 star-border">
+                <i class="fa fa-star fa-2x pink"></i>
+                <i class="fa fa-star-o fa-2x black"></i>
+            </div>
+
+            <h3 class="col-xs-10">Press</h3>
+
+            <div class="col-xs-1 star-border">
+                <i class="fa fa-star fa-2x pink"></i>
+                <i class="fa fa-star-o fa-2x black"></i>
+            </div>
+
+            <div id="loading"><h3>Loading...<br/><i class="fa fa-spinner fa-2x fa-spin"></i></h3></div>
+                                
+            <div class="clearfix press" ng-repeat="article in press">
+                <h3>{{article.title}}</h3>
+                <img ng-src="{{article.thumbnail_images.full.url}}" alt="{{article.title}}" title="{{article.title}}" />           
+            </div>
+
+        </div>                 
+    </div>
+</div>
+                    
+ 
+<sidebar></sidebar>

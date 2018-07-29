@@ -1,0 +1,46 @@
+<div class="col-sm-7 content">
+    <div class="title-container">
+        <div class="title">
+
+            <div class="col-xs-1 star-border">
+                <i class="fa fa-star fa-2x pink"></i>
+                <i class="fa fa-star-o fa-2x black"></i>
+            </div>
+
+            <h3 class="col-xs-10">Photos</h3>
+
+            <div class="col-xs-1 star-border">
+                <i class="fa fa-star fa-2x pink"></i>
+                <i class="fa fa-star-o fa-2x black"></i>
+            </div>
+
+            <div class="clearfix photo">
+                <div data="img">
+                    <img ng-src="{{img}}" ng-if="showImg"/>
+                    <video controls ng-if="showVideo" poster="{{poster}}">
+                        <source ng-src="{{video}}">
+                    </video>
+                </div>
+                <p ng-bind-html="caption"></p>
+                <span>{{date}}</span> 
+                <hr/>  
+            </div>
+
+            <div class="clearfix photo-pagination">
+                <h2>Photos</h2>
+                <ul>
+                    <li ng-repeat="photo in instagram">
+                        <a ng-href="#/photos/{{photo.index}}">
+                            {{photo.index}}
+                            <i class="fa fa-play-circle-o fa-3x white shadow" ng-if="photo.showIcon" data="photo"></i>
+                            <img ng-src="{{photo.images.thumbnail.url}}" alt="" data="photo"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+                                 
+        </div>                
+    </div>
+</div>
+                    
+<sidebar></sidebar>

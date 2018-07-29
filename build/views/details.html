@@ -1,0 +1,85 @@
+<div class="col-sm-7 content">
+    <div class="title-container">
+        <div class="title">
+
+            <div class="col-xs-1 star-border">
+                <i class="fa fa-star fa-2x pink"></i>
+                <i class="fa fa-star-o fa-2x black"></i>
+            </div>
+
+            <h3 class="col-xs-10">{{title}}</h3>
+
+            <div class="col-xs-1 star-border">
+                <i class="fa fa-star fa-2x pink"></i>
+                <i class="fa fa-star-o fa-2x black"></i>
+            </div>
+
+            <div class="clearfix details-header">
+                <div class="col-xs-4" data="one">                   
+                    <i class="fa fa-calendar fa-3x black"></i>
+                    <span>{{day}}<br/><b>{{date}}</b></span>
+                </div>
+
+                <div class="col-xs-4" data="two">
+                    <i class="fa fa-star fa-2x black"></i>
+                </div>
+
+                <div class="col-xs-4" data="three">
+                    <span>{{duration}}</span> 
+                    <i class="fa fa-clock-o fa-3x black"></i>
+                </div>
+            </div>
+
+            <div class="clearfix details-img">
+                <img ng-src="{{img}}" alt="{{name}}" title="{{name}}" />
+            </div>
+            
+            <div ng-if="location">
+            <h3>Location</h3>
+
+            <div class="clearfix details-location">
+                <div>                 
+                    <iframe ng-src="{{embed}}" width="400" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+
+                <div>
+                    <h4>{{place_name}}</h4>
+                    <p>{{place_address}}<br/>
+                        {{place_city}}, {{place_country}} {{place_zip}}
+                    </p>
+                </div>
+
+                <a ng-href="http://maps.google.com?f=d&q={{lat}},{{lng}}&ll={{lat}},{{lng}}&daddr={{lat}},{{lng}}" title="Get Directions" target="_blank">Get Directions <i class="fa fa-map-marker fa-2x"></i></a>
+            </div>
+            </div>
+
+            <h3>Details</h3>
+
+            <div class="clearfix details-description" ng-bind-html="desc">
+                <!-- <p>{{description}}</p> -->
+                <!-- <p ng-bind-html="desc"></p> -->
+            </div>
+
+        </div>                    
+    </div>
+</div>
+                    
+                    
+<sidebar></sidebar>    
+                       
+<div class="clearfix arrows">
+                        
+    <a ng-href="#/{{category}}/{{prevNum}}/{{prevURL}}" ng-if="prevShow" class="col-xs-6">
+        <!-- <i class="fa fa-arrow-left fa-2x" data="left"></i> -->
+        <h4><i class="fa fa-arrow-left fa-2x" data="left"></i> {{prevName}}</h4>
+        <img ng-src="{{prevImg}}" alt="{{prevName}}" title="{{prevName}}" />
+        <span>{{prevDate}}</span>
+    </a>
+
+    <a ng-href="#/{{category}}/{{nextNum}}/{{nextURL}}" ng-if="nextShow" class="col-xs-6"> 
+       <!--  <i class="fa fa-arrow-right fa-2x" data="right"></i> -->
+        <h4>{{nextName}}  <i class="fa fa-arrow-right fa-2x" data="right"></i></h4>
+        <img ng-src="{{nextImg}}" alt="{{nextName}}" title="{{nextName}}" />
+        <span>{{nextDate}}</span>
+    </a>
+</div>

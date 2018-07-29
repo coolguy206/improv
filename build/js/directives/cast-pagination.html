@@ -1,0 +1,11 @@
+<div class="clearfix cast-pagination">
+    <h2>{{page}}</h2>
+    <ul>
+        <li ng-repeat="cast in info">
+            <a ng-href="#/{{page}}/{{cast.index}}/{{cast.slug}}" title="{{cast.title}}">
+                <span>{{cast.title}}</span>
+                <img ng-src="{{cast.thumbnail_images.thumbnail.url}}" alt="{{cast.title}}" />
+            </a>
+        </li>
+    </ul>
+</div>

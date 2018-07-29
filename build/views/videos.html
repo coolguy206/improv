@@ -1,0 +1,42 @@
+<div class="col-sm-7 content">
+    <div class="title-container">
+        <div class="title">
+
+            <div class="col-xs-1 star-border">
+                <i class="fa fa-star fa-2x pink"></i>
+                <i class="fa fa-star-o fa-2x black"></i>
+            </div>
+
+            <h3 class="col-xs-10">{{title}}</h3>
+
+            <div class="col-xs-1 star-border">
+                <i class="fa fa-star fa-2x pink"></i>
+                <i class="fa fa-star-o fa-2x black"></i>
+            </div>
+                  
+            <div class="clearfix video">
+                <iframe width="640" height="360" src="{{videoSrc}}" frameborder="0" allowfullscreen></iframe>
+                <!-- <p>{{description}}</p> -->
+                <p ng-bind-html="description"></p>
+                <span>{{date}}</span>
+                <hr/>
+            </div>
+
+            <div class="clearfix photo-pagination">
+                <h2>Videos</h2>             
+                <ul>
+                    <li ng-repeat="video in youtube" data="youtube">
+                        <a ng-href="#/videos/{{video.index}}/{{video.url}}" title="{{video.snippet.title}}">
+                            {{video.index}}
+                            <!-- <i class="fa fa-play-circle-o fa-3x white shadow" data="video"></i> -->
+                            <img ng-src="{{video.snippet.thumbnails.default.url}}" data="video"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+                                 
+        </div>                   
+    </div>
+</div>
+                    
+<sidebar></sidebar>
