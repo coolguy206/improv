@@ -4,9 +4,6 @@ var improvId = '155588661156148';
 // var token = '?access_token=EAAEDcqhSBA8BAHFEjYjofxPwWtjyRP3C1Er8cUorW8dsxVnuP9ZAEdqsT3MKlgTiSugZBsSEdwx0smCKgpiFqkW8n7ocTP3FZBJBTPoqNggTpocf0lD7hEcAPz6J4WemGe55h9AQWyT1B1ko1quUyJpdxAWbmTAeQCsPFrFZAAZDZD';
 
 //app token never expires
-// var token = '?access_token=285265961813007|kWebjxfAmbFyutsoJlXKOnvLcO8';
-// var token = '?access_token=EAAEDcqhSBA8BALx7vlskKTEwWSrimYCg8WV6Y3qes8FAPipxE9foWUp3jQjgLVPNUqFZBNl58ZATU9GTv0aIJgCmxH7YccJDXRrn0trnTAz8lCQUR9ZBHortVQ3F5Tqbd5ZBPF9BQzk7at1IQeyZAjADgUYv3NZAsGJ1ct1W7oiAZDZD';
-
 var token = '?access_token=EAAEDcqhSBA8BAHsMOHE080Y4bG4xZAcUPBYPAdZC34x4hpmPu9IZCIStRpx3m0e8p4yGVtnQFS9ApOjaV6UiYhw2aMbK1H9ukzlVD7Uv3qzonQkoIEzgDlk4PwPfeEqcZBskP1C2eojXZBO8jBGkHwWIKaL7lWmyjfDyA7MNfwAZDZD';
 
 var baseURL = 'https://graph.facebook.com/v3.1/';
