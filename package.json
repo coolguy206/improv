@@ -6,7 +6,6 @@
   "dependencies": {
     "async": "^2.0.0",
     "csv2json": "^1.1.0",
-    "grunt": "^1.0.1",
     "grunt-browserify": "^5.0.0",
     "grunt-concurrent": "^2.3.0",
     "grunt-contrib-concat": "^1.0.1",
@@ -25,7 +24,9 @@
     "inert": "^4.0.1",
     "request": "^2.72.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt": "^1.0.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
