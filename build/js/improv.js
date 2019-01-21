@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 var app = angular.module('myApp',['ngRoute']);
 
 // change the year
@@ -157,9 +157,11 @@ var improvId = '155588661156148';
 // user token expires at some point
 // var token = '?access_token=EAAEDcqhSBA8BAHFEjYjofxPwWtjyRP3C1Er8cUorW8dsxVnuP9ZAEdqsT3MKlgTiSugZBsSEdwx0smCKgpiFqkW8n7ocTP3FZBJBTPoqNggTpocf0lD7hEcAPz6J4WemGe55h9AQWyT1B1ko1quUyJpdxAWbmTAeQCsPFrFZAAZDZD';
 
-//app token never expires 
+//app token never expires
 // var token = '?access_token=285265961813007|kWebjxfAmbFyutsoJlXKOnvLcO8';
-var token = '?access_token=EAAEDcqhSBA8BALx7vlskKTEwWSrimYCg8WV6Y3qes8FAPipxE9foWUp3jQjgLVPNUqFZBNl58ZATU9GTv0aIJgCmxH7YccJDXRrn0trnTAz8lCQUR9ZBHortVQ3F5Tqbd5ZBPF9BQzk7at1IQeyZAjADgUYv3NZAsGJ1ct1W7oiAZDZD';
+// var token = '?access_token=EAAEDcqhSBA8BALx7vlskKTEwWSrimYCg8WV6Y3qes8FAPipxE9foWUp3jQjgLVPNUqFZBNl58ZATU9GTv0aIJgCmxH7YccJDXRrn0trnTAz8lCQUR9ZBHortVQ3F5Tqbd5ZBPF9BQzk7at1IQeyZAjADgUYv3NZAsGJ1ct1W7oiAZDZD';
+
+var token = '?access_token=EAAEDcqhSBA8BAHsMOHE080Y4bG4xZAcUPBYPAdZC34x4hpmPu9IZCIStRpx3m0e8p4yGVtnQFS9ApOjaV6UiYhw2aMbK1H9ukzlVD7Uv3qzonQkoIEzgDlk4PwPfeEqcZBskP1C2eojXZBO8jBGkHwWIKaL7lWmyjfDyA7MNfwAZDZD';
 
 var baseURL = 'https://graph.facebook.com/v3.1/';
 
@@ -168,16 +170,18 @@ var addToObj = require('../../dev/js/functions/addToObj.js');
 var makeDate = require('../../dev/js/functions/makeDate.js');
 
 //get the events
-app.factory('fbEvents', ['$http', '$sce', function($http, $sce) { 
-  return $http.get(baseURL+improvId+'/events'+token+'&fields=description,end_time,start_time,is_canceled,name,place,ticket_uri,cover') 
+app.factory('fbEvents', ['$http', '$sce', function($http, $sce) {
+  return $http.get(baseURL+improvId+'/events'+token+'&fields=description,end_time,start_time,is_canceled,name,place,ticket_uri,cover')
             .success(function(data) {
                 console.log('getting facebook events');
-                // console.log(data.data); 
+                console.log(data.data);
                 var fbEvents = data.data;
 
                 fbEvents.forEach(function(val,i){
                   var id = val.place.id;
+                  // console.log('the id:' + id);
                   var name = val.name.toLowerCase();
+                  // console.log('the name:' + name);
                   var imgSource;
 
                   var description = val.description;
@@ -188,6 +192,7 @@ app.factory('fbEvents', ['$http', '$sce', function($http, $sce) {
                   });
 
                   description = description.join(' ');
+                  // console.log('the description:' + description);
 
                   var a;
                   var str;
@@ -199,7 +204,7 @@ app.factory('fbEvents', ['$http', '$sce', function($http, $sce) {
                         str = val.slice(3,-4);
                         a = '<p><a href="'+str+'" target="_blank">'+str+'</a></p>';
                         description.splice(i,1,a);
-                      } else if(val.indexOf('</p>') !== -1){ 
+                      } else if(val.indexOf('</p>') !== -1){
                         str = val.slice(0,-4);
                         a = '<p><a href="'+str+'" target="_blank">'+str+'</a></p>';
                         description.splice(i,1,a);
@@ -207,29 +212,36 @@ app.factory('fbEvents', ['$http', '$sce', function($http, $sce) {
                         a = '<p><a href="'+val+'" target="_blank">'+val+'</a></p>';
                         description.splice(i,1,a);
                       }
-                
+
                     }
                   });
 
                   description = description.join(' ');
                   val.desc = $sce.trustAsHtml(description);
 
-                  imgSource = val.cover.source;
-                  addToObj(name,val,imgSource,i);
+                  //if cover is not undefined
+                  // console.log('the image:' + val.cover);
+                  if(val.cover !== undefined){
+                    imgSource = val.cover.source;
+                    addToObj(name,val,imgSource,i);
+                  }
+                  else {
+                    console.log('no cover image available');
+                  }
 
                 });
 
-              	return data; 
-            }) 
-            .error(function(err) { 
-              	return err; 
-            }); 
-}]); 
+              	return data;
+            })
+            .error(function(err) {
+              	return err;
+            });
+}]);
 
-app.factory('fbFeed', ['$http','$sce', function($http,$sce) { 
-  return $http.get(baseURL+improvId+'/feed/'+token+'&fields=message,id,full_picture,story,created_time,source') 
+app.factory('fbFeed', ['$http','$sce', function($http,$sce) {
+  return $http.get(baseURL+improvId+'/feed/'+token+'&fields=message,id,full_picture,story,created_time,source')
             .success(function(data) {
-                console.log('getting facebook feed'); 
+                console.log('getting facebook feed');
                 // console.log(data);
                 var fbFeed = data.data;
 
@@ -244,10 +256,10 @@ app.factory('fbFeed', ['$http','$sce', function($http,$sce) {
                     var message = val.message;
                     message = message.replace(/\n/g,' ');
                     message = message.split(' ');
-                    
+
                     message.forEach(function(val,i){
                       if(val.indexOf('http') !== -1){
-                          url = '<a href="'+val+'" target="_blank">'+val+'</a>';    
+                          url = '<a href="'+val+'" target="_blank">'+val+'</a>';
                           message.splice(i,1,url);
                       } else if(val.indexOf('#') !== -1){
                           hash = val.replace(/#/g,'');
@@ -278,12 +290,13 @@ app.factory('fbFeed', ['$http','$sce', function($http,$sce) {
                   }
                 });
 
-              	return data; 
-            }) 
-            .error(function(err) { 
-              	return err; 
-            }); 
-}]); 
+              	return data;
+            })
+            .error(function(err) {
+              	return err;
+            });
+}]);
+
 
 var wordPressURL = 'http://improvcomedymumbai.com/api/';
 
